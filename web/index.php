@@ -1,3 +1,4 @@
+
 <?php
  include('session.php');
 
@@ -11,10 +12,11 @@ if (mysqli_query($db, $sql))
   echo "Error: " . $sql . "<br>" . mysqli_error($db);
 }
 $result = mysqli_query($db, $sql);
+ $count = 0;
 if (mysqli_num_rows($result) > 0)
  {
    // output data of each row
-    $count = 0;
+   
    while($row = mysqli_fetch_assoc($result))
  { 
       $count++;
@@ -71,7 +73,7 @@ if ($result)
         <script type="text/javascript">
             .carousel-inner{
               max-width:80%;
-              max-height: 400px !important;
+              max-height: 800px !important;
             }
         </script>
     </head>
@@ -92,7 +94,7 @@ if ($result)
                         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">SYSTEM ACTION</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
                           <li><a href="current_bins.php">CURRENT BINS COLLECTION</a></li>
-                            <li><a href="current_trucks.php">CURRENT TRUCK ASSIGN</a></li>
+                            <li><a href="current_truck.php">CURRENT TRUCK ASSIGN</a></li>
                         </ul>
                     </li>
                     <li>
@@ -133,8 +135,8 @@ if ($result)
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a ><?php echo $login_session; ?></a></li>
-                                <li><a href="bins_details.php">Bins Details</a></li>
-                                <li><a href="Truck_details.php">Truck Details</a></li>
+                                <li><a href="bins_details.html">Bins Details</a></li>
+                                <li><a href="Truck_details.html">Truck Details</a></li>
                                 <li><a href="logout.php">Log Out</a></li>
                             </ul>
                         </div>
@@ -167,7 +169,7 @@ if ($result)
                      <div class="card-body">
                        <h3 class="card-title">Supporting Area</h3>
                        <p class="card-text"><h4>click to see the details of supporting area and regions which we cover</h4></p>
-                       <a href="" class="btn btn-info">View Details</a>
+                       <a href="Area.php" class="btn btn-info">View Details</a>
                      </div>
                    </div>
                  </div>

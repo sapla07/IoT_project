@@ -32,15 +32,16 @@
                              <th>#</th>
                              <th>bin_id</th>
                              <th>bin_capac</th>
-                             <th>bin_loc</th>
-                             <th>bin_assign</th>
+                             <th>bin_address</th>
+                             <th>lat</th>
+                             <th>lng</th>
                              <th>truck id</th>
                           </tr>
                        </thead>
 
 <?php
 include('config.php');
-$sql = "select * from bins";
+$sql = "select * from bins where bins_cap_fill < 80 " ;
 if (mysqli_query($db, $sql)) {
 echo "";
 } else {
@@ -60,16 +61,19 @@ while($row = mysqli_fetch_assoc($result)) { ?>
                               <?php echo $row['bins_id']; ?>
                               </td>
                               <td>
-                              <?php echo $row['bins_capacity_filled']; ?>
+                              <?php echo $row['bins_cap_fill']; ?>
                               </td>
                               <td>
-                              <?php echo $row['bins_location']; ?>
+                              <?php echo $row['bins_add']; ?>
                               </td>
                               <td>
-                              <?php echo $row['b_assign']; ?>
+                              <?php echo $row['lat']; ?>
                               </td>
                               <td>
-                              <?php echo $row['truck_id']; ?>
+                              <?php echo $row['lng']; ?>
+                              </td>                              
+                              <td>
+                              <?php echo $row['t_id']; ?>
                               </td>
                            </tr>
                         </tbody>

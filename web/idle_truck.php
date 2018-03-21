@@ -30,9 +30,11 @@
                          <tr class="text-primary">
                              <th>#</th>
                              <th>truck_id</th>
-                             <th>truck_loc</th>
-                             <th>truck_capacity</th>
-                             <th>truck_Assign</th>
+                             <th>truck_add</th>
+                             <th>lat</th>
+                             <th>lng</th>
+                             <th>truck_cap</th>
+                             <th>area_id</th>
                          </tr>
                      </thead>
 <?php
@@ -54,16 +56,22 @@ if (mysqli_num_rows($result) > 0) {
                             <?php echo $count; ?>
                             </th>
                             <td>
-                               <?php echo $row['truck_id']; ?>
+                               <?php echo $row['t_id']; ?>
                             </td>
                             <td>
-                               <?php echo $row['truck_capacity']; ?>
+                               <?php echo $row['t_cap']; ?>
                             </td>
                             <td>
-                               <?php echo $row['truck_location']; ?>
+                               <?php echo $row['lat']; ?>
                             </td>
                             <td>
-                               <?php echo $row['truck_Assign']; ?>
+                               <?php echo $row['lng']; ?>
+                            </td>                            
+                            <td>
+                               <?php echo $row['t_add']; ?>
+                            </td>
+                            <td>
+                               <?php echo $row['a_id']; ?>
                             </td>
                             </tr>
                           </tbody>

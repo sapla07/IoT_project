@@ -4,6 +4,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- jQuery CDN -->
+         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+         <!-- Bootstrap Js CDN -->
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
 
         <title>Collapsible sidebar using Bootstrap 3</title>
 
@@ -11,6 +16,19 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <!-- Our Custom CSS -->
         <link rel="stylesheet" href="style.css">
+         <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 80%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
     </head>
     <body>
 
@@ -60,7 +78,7 @@
             <div id="content">
 
                 <nav class="navbar navbar-default">
-                    <div class="container-fluid">
+                    <div class="container">
 
                         <div class="navbar-header">
                             <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
@@ -77,28 +95,104 @@
                     </div>
                 </nav>
 
-                <div class="container">
-                  
-                  <form action="/action_page.php">
-                    <div class="form-group">
-                      <label for="ID">Truck id:</label>
-                      <input type="ID" class="form-control" id="Truck Id" placeholder="Enter Truck Id" name="Truck Id">
-                    </div>
-                    <div class="form-group">
-                      <label for="pwd"> Truck Location:</label>
-                      <input type="password" class="form-control" id="pwd" placeholder="Enter Truck Location" name="pwd">
-                    </div>
-                <div class="form-group">
-                      <label for="pwd"> Truck Capacity:</label>
-                      <input type="password" class="form-control" id="Capacity" placeholder="Enter Truck Capacity" name="Capacity">
-                    </div>
-                    <button type="Add" class="btn btn-primary">Add</button>
-                  </form>
-                </div>
+                 <div id="map" max-height="160px" max-width="80%"></div>
+    <div id="form" style="display:none" >
+      <table>
+      <tr><td>tid:</td> <td><input type='text' id='tid'/> </td> </tr>
+      <tr><td>Address:</td> <td><input type='text' id='address'/> </td> </tr>
+      <tr><td>tcap:</td> <td><input type='text' id='tcap'/> </td> </tr>
+      <tr><td>aid:</td> <td><input type='text' id='aid'/> </td> </tr>
+     <!-- <tr><td>Tid:</td> <td><select id='type'> +
+                 <option value='bar' SELECTED>bar</option>
+                 <option value='restaurant'>restaurant</option>
+                 </select> </td></tr> -->
+                 <tr><td></td><td><input type="button" id="submit" value="Save"></td></tr>
+      </table>
+    </div>
+    <div id="message" style="display:none" >Location saved</div>
 
-               
-            </div>
-        </div>
+    <script>
+      
+
+      $(document).ready(function(){
+      $('#submit').click(function(){
+  
+     alert("submitted");
+     var tid = $("#tid").val();
+     var add = $("#address").val();
+     var tcap = $("#tcap").val();
+     var aid =  $("#aid").val();
+     var latlng = marker.getPosition();
+     var lat = latlng.lat();
+     var lon = latlng.lng()
+   
+   
+   
+   $.ajax({
+    url:"sql_row1.php",
+    method:"POST",
+    data:{tid:tid, add:add, lat:lat, lon:lon, tcap:tcap,aid:aid},
+    success:function(data){
+      
+      $('#message').show();
+     $('#message').html(data);
+     ;
+    }
+   })
+  
+ });
+
+});
+
+
+
+
+      var map;
+      var marker;
+      var infowindow;
+      var messagewindow;
+
+      function initMap() {
+        var mumbai = {lat: 19.032801, lng: 72.896355};
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: mumbai,
+          zoom: 13
+        });
+
+        infowindow = new google.maps.InfoWindow({
+          content: document.getElementById('form')
+        });
+
+        messagewindow = new google.maps.InfoWindow({
+          content: document.getElementById('message')
+        });
+
+        google.maps.event.addListener(map, 'click', function(event) {
+          marker = new google.maps.Marker({
+            position: event.latLng,
+            map: map
+          });
+
+
+          google.maps.event.addListener(marker, 'click', function() {
+         //   alert("sumeet");
+            $('#form').show();            
+            infowindow.open(map, marker);
+          });
+        });
+      }
+
+      
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAkCxbsl5ujOb2B1IkdGQoJ0Fsk97uyEQ&callback=initMap">
+    </script>
+
+                  
+                  
+    </div>
+  </div>
 
 
 

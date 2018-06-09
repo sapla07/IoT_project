@@ -142,8 +142,8 @@ while($row = mysqli_fetch_array($result)) {
         }
 		
         directionsService.route({
-          origin: "SG Barve Marg, Ambedkar Nagar, Kurla West, Kurla, Mumbai, Maharashtra 400070",
-          destination: "SG Barve Marg, Ambedkar Nagar, Kurla West, Kurla, Mumbai, Maharashtra 400070",
+          origin: "19.063723, 72.891086",
+          destination: "19.0674107, 72.9206264",
           waypoints: waypts,
           optimizeWaypoints: true,
           travelMode: 'DRIVING'

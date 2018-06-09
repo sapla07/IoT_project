@@ -7,8 +7,54 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-     <script type="text/javascript" src = "jquery/jquery.js"></script>
-              <script type="text/javascript" >
+  <script type="text/javascript">
+    
+        var map ;
+            var geolocate;
+            var markers = [];
+
+          
+          function init()
+          {
+          console.log(geolocate);
+            
+
+                  navigator.geolocation.getCurrentPosition(function(position) {
+                    
+                       geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                       console.log(geolocate);
+                       map = new google.maps.Map(document.getElementById('map'), {
+                              center: geolocate,
+                              zoom: 11,
+                              mapTypeId: google.maps.MapTypeId.ROADMAP
+                          });
+
+
+                      var marker = new google.maps.Marker({
+                        position: geolocate,
+                        map: map,
+                        title: 'Current Location',
+                        icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+                      });
+
+                      google.maps.event.addListener(marker, 'click', function() {
+                        //console.log(place);
+                        infowindow.setContent('Current Location');
+                        infowindow.open(map, this);
+                      });
+
+                });
+
+            }
+    
+  </script>
+
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhuYfTFXBzzvllTaz0tnE9aNC_uaagwVc&callback=init">
+  </script>
+    <script async defer type="text/javascript" src="area_latlng.js"></script>
+     <!-- <script type="text/javascript" src = "jquery/jquery.js"></script> -->
+              <!-- <script type="text/javascript" >
                /* $(document).ready(function(){
                   setInterval(function(){
                     //alert("mah");
@@ -18,7 +64,9 @@
                 setTimeout(function(){
                    window.location.reload(1);
                 }, 5000);
-              </script>   
+              </script>   --> 
+    
+
 </head>
 <body>
   <h3 class="text-primary">Area Details</h3>
@@ -76,7 +124,9 @@ while($row = mysqli_fetch_assoc($result)) { ?>
                               <td>
                               <?php echo $row['atc']; ?>
                               </td>
-
+                              <td>
+                                  <button type="button" class="btn btn-primary" onclick="area(<?php echo $row['a_id']; ?>)">locate bin in <?php echo $row['a_name']; ?></button>
+                               </td>
                            </tr>
                         </tbody>
 <?php
@@ -88,6 +138,11 @@ echo "0 results";
 ?>
  </table>                 
 </div>
+
+        
+        <div id="map" class="container" style="width: 1000px; height: 800px">
+          
+        </div>
 </div>
 </body>
 </html>

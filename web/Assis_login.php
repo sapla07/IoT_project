@@ -9,7 +9,7 @@
       $myusername = mysqli_real_escape_string($db,$_POST['username']);
       $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
       
-      $sql = "SELECT uid FROM users WHERE uname = '$myusername' and upassword = '$mypassword'";
+      $sql = "SELECT asid FROM assistant WHERE aname = '$myusername' and apassword = '$mypassword'";
       $result = mysqli_query($db,$sql);
        $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
       
@@ -21,7 +21,7 @@
         
          $_SESSION['login_user'] = $myusername;
          
-         header("location: index.php");
+         header("location: assis_index.php");
       }else {
          $Error = "Your Login Name or Password is invalid";
 
@@ -67,7 +67,7 @@
 <body>
 <div class="login-form">
     <form action="" method="post">
-        <h2 class="text-center">Admin Log in</h2>       
+        <h2 class="text-center">Assitant Log in</h2>       
         <div class="form-group">
             <input type="text" class="form-control" placeholder="Username" required="required" name = "username">
         </div>
